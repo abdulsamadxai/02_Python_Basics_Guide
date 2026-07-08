@@ -67,6 +67,16 @@ response.choices[0].message.content
 
 Same idea with dictionaries, just using `[ ]` instead of `.`, like `weather['current_weather']['temperature']`. A long chain is just several of these steps back to back, nothing more advanced happening there.
 
+```mermaid
+flowchart LR
+    A["📦 response"]:::blue --> B[".choices[0]\nfirst item in the list"]:::purple --> C[".message"]:::teal --> D[".content\nthe actual text"]:::green
+
+    classDef blue fill:#1e3a5f,stroke:#4a8fd4,color:#a8d4ff
+    classDef purple fill:#2d1b4e,stroke:#8b5cf6,color:#c4b5fd
+    classDef teal fill:#0f3030,stroke:#2dd4bf,color:#99f6e4
+    classDef green fill:#1a3a2a,stroke:#34d399,color:#6ee7b7
+```
+
 ---
 
 ## 3. Functions and type hints
@@ -176,6 +186,15 @@ result = tool_map[tool_name]("1847 * 293")
 
 Why this matters: the AI can only send back plain text like `"calculator"`, it cannot send an actual Python function. `tool_map` is the bridge that turns that text name into a real function your code can call.
 
+```mermaid
+flowchart LR
+    A["🏷️ tool_name = 'calculator'"]:::blue --> B["📇 tool_map[tool_name]\nlooks up the function"]:::purple --> C["⚙️ calculator function\nready to run"]:::green
+
+    classDef blue fill:#1e3a5f,stroke:#4a8fd4,color:#a8d4ff
+    classDef purple fill:#2d1b4e,stroke:#8b5cf6,color:#c4b5fd
+    classDef green fill:#1a3a2a,stroke:#34d399,color:#6ee7b7
+```
+
 ---
 
 ## 8. Unpacking a dictionary into a function call
@@ -199,6 +218,15 @@ tool_result = tool_map[tool_name](**tool_args)
 ```
 
 `tool_map[tool_name]` fetches the right function, `(**tool_args)` calls it with the arguments unpacked automatically.
+
+```mermaid
+flowchart LR
+    A["📇 tool_args\n{'expression': '1847 * 293'}"]:::purple --> B["**tool_args\nunpacks it into arguments"]:::teal --> C["⚙️ function runs\nwith that input"]:::green
+
+    classDef purple fill:#2d1b4e,stroke:#8b5cf6,color:#c4b5fd
+    classDef teal fill:#0f3030,stroke:#2dd4bf,color:#99f6e4
+    classDef green fill:#1a3a2a,stroke:#34d399,color:#6ee7b7
+```
 
 ---
 
@@ -264,6 +292,16 @@ while True:                      # outer loop, waits for you to type
 ```
 
 `break` only stops the loop it's directly written inside. The inner `break` doesn't touch the outer loop, the outer loop just moves on and eventually loops back for your next message.
+
+```mermaid
+flowchart LR
+    A["🔁 Outer loop\nwaits for your message"]:::gray --> B["🔁 Inner loop\nacts step by step"]:::purple
+    B -->|not done| B
+    B -->|done, break| A
+
+    classDef gray fill:#252535,stroke:#4a4a6a,color:#c0c0d8
+    classDef purple fill:#2d1b4e,stroke:#8b5cf6,color:#c4b5fd
+```
 
 ---
 
